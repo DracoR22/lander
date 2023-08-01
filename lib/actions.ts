@@ -87,7 +87,7 @@ export const fetchAllProjects = (category?: string | null, endcursor?: string | 
 
   const validCategory = category ?? ''
 
-  return makeGraphQLRequest(projectsQuery, { category: validCategory, endcursor });
+  return makeGraphQLRequest(projectsQuery, { category, endcursor });
 };
 
 export const getProjectDetails = (id: string) => {
