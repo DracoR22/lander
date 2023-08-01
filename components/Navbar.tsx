@@ -2,10 +2,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { NavLinks } from '@/constants'
 import AuthProviders from './AuthProviders'
+import { getCurrentUser } from '@/lib/session'
+import ProfileMenu from './ProfileMenu'
 
-const Navbar = () => {
+const Navbar = async () => {
 
-const session = null
+const session = await getCurrentUser()
 
   return (
    <nav className="flex justify-between items-center py-5 px-8 border-b gap-4">
@@ -23,13 +25,15 @@ const session = null
      </div>
 
      <div className='flex justify-center items-center gap-4'>
-       {session ? (
+       {session?.user ? (
         <>
-        userPhoto
+        <ProfileMenu session={session}/>
 
         <Link href='/create-project'>
         Share your work
         </Link>
+
+      
         </>
        ) : (
         <AuthProviders/>
