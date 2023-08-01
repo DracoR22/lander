@@ -140,3 +140,19 @@ export const getProjectsOfUserQuery = `
     }
   }
 `;
+
+export const projectsQueryAll = `
+  query getProjects($endcursor: String) {
+    projectSearch(first: 8, after: $endcursor) {
+     ...
+    }
+  }
+`;
+
+export const projectsQueryWithFilter = `
+  query getProjects($category: String, $endcursor: String) {
+    projectSearch(first: 8, after: $endcursor, filter: {category: {eq: $category}}) {
+      ...
+    }
+  }
+`;

@@ -1,5 +1,5 @@
 import { ProjectForm } from "@/common.types";
-import { createProjectMutation, createUserMutation, deleteProjectMutation, getProjectByIdQuery, getProjectsOfUserQuery, getUserQuery, projectsQuery, updateProjectMutation } from "@/graphql";
+import { createProjectMutation, createUserMutation, deleteProjectMutation, getProjectByIdQuery, getProjectsOfUserQuery, getUserQuery, projectsQuery, projectsQueryAll, projectsQueryWithFilter, updateProjectMutation } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
 
 
@@ -87,7 +87,11 @@ export const fetchAllProjects = (category?: string | null, endcursor?: string | 
 
   const validCategory = category ?? ''
 
-  return makeGraphQLRequest(projectsQuery, { category, endcursor });
+  if (category) {
+    return makeGraphQLRequest(projectsQueryWithFilter, { category, endcursor });
+  }
+
+  return makeGraphQLRequest(projectsQueryAll, { endcursor });
 };
 
 export const getProjectDetails = (id: string) => {
